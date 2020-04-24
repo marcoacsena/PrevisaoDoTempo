@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PrevisaoDoTempo</string>
+    <string name="digite_o_nome_da_cidade_para_saber_a_previsão_do_tempo">
+        Digite uma cidade para saber a previsão do tempo</string>
 </resources>
