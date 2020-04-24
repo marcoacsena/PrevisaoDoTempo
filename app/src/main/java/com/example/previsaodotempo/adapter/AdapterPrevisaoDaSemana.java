@@ -16,11 +16,11 @@ import java.util.List;
 
 public class AdapterPrevisaoDaSemana extends RecyclerView.Adapter<AdapterPrevisaoDaSemana.MyViewHolder> {
 
-    private List<PrevisaoDaSemana> previsoes;
+    private List<PrevisaoDaSemana> previsoesDaSemana;
     private Context context;
 
-    public AdapterPrevisaoDaSemana(List<PrevisaoDaSemana> previsoes, Context context) {
-        this.previsoes = previsoes;
+    public AdapterPrevisaoDaSemana(List<PrevisaoDaSemana> previsoesDaSemana, Context context) {
+        this.previsoesDaSemana = previsoesDaSemana;
         this.context = context;
     }
 
@@ -37,10 +37,10 @@ public class AdapterPrevisaoDaSemana extends RecyclerView.Adapter<AdapterPrevisa
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.tvData.setText(previsoes.get(position).getDate());
-        //holder.tvDiaDaSemana.setText(previsoes.get(position).getWeekday());
-        holder.tvTempMin.setText(previsoes.get(position).getMin());
-        holder.tvTempMax.setText(previsoes.get(position).getMax());
+        holder.tvData.setText(previsoesDaSemana.get(position).getDate());
+        holder.tvDiaDaSemana.setText(previsoesDaSemana.get(position).getWeekday());
+        holder.tvTempMin.setText(previsoesDaSemana.get(position).getMin().toString());
+        holder.tvTempMax.setText(previsoesDaSemana.get(position).getMax().toString());
 
 //        holder.tvData.setText("30/09/1964");
 //        holder.tvDiaDaSemana.setText("Sexta");
@@ -50,7 +50,8 @@ public class AdapterPrevisaoDaSemana extends RecyclerView.Adapter<AdapterPrevisa
 
     @Override
     public int getItemCount() {
-        return previsoes.size();
+        return
+                previsoesDaSemana.size();
     }
 
 
@@ -64,7 +65,7 @@ public class AdapterPrevisaoDaSemana extends RecyclerView.Adapter<AdapterPrevisa
             tvData = itemView.findViewById(R.id.tvData);
             tvTempMin = itemView.findViewById(R.id.tvtempMin);
             tvTempMax = itemView.findViewById(R.id.tvtempMax);
-            //tvDiaDaSemana = itemView.findViewById(R.id.tvDiaDaSemana);
+            tvDiaDaSemana = itemView.findViewById(R.id.tvDiaDaSemana);
         }
     }
 }
