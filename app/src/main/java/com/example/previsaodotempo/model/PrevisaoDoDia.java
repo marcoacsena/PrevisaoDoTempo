@@ -34,21 +34,22 @@ public class PrevisaoDoDia {
 //    private String sunset;
 //    @SerializedName("condition_slug")
 //    private String condition_slug;
-    //@SerializedName("city_name")
-    private String city_name;
+    @SerializedName("city_name")
+    private String cityName;
 
     @SerializedName("forecast")
     private List <PrevisaoDaSemana> previsaoDaSemana;
 
-    public PrevisaoDoDia() {
-    }
+//    public PrevisaoDoDia() {
+//    }
+//
+//    public PrevisaoDoDia(Integer temp, String date, String city_name, List<PrevisaoDaSemana> previsaoDaSemana) {
+//        this.temp = temp;
+//        this.date = date;
+//        this.city_name = city_name;
+//        this.previsaoDaSemana = previsaoDaSemana;
+//    }
 
-    public PrevisaoDoDia(Integer temp, String date, String city_name, List<PrevisaoDaSemana> previsaoDaSemana) {
-        this.temp = temp;
-        this.date = date;
-        this.city_name = city_name;
-        this.previsaoDaSemana = previsaoDaSemana;
-    }
 
     public Integer getTemp() {
         return temp;
@@ -66,12 +67,12 @@ public class PrevisaoDoDia {
         this.date = date;
     }
 
-    public String getCity_name() {
-        return city_name;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setCity_name(String city_name) {
-        this.city_name = city_name;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     public List<PrevisaoDaSemana> getPrevisaoDaSemana() {

@@ -4,11 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.previsaodotempo.R;
@@ -16,8 +15,8 @@ import com.example.previsaodotempo.adapter.AdapterPrevisaoDaSemana;
 import com.example.previsaodotempo.model.PrevisaoDaSemana;
 import com.example.previsaodotempo.model.PrevisaoDoDia;
 import com.example.previsaodotempo.model.PrevisaoDoTempo;
-import com.example.previsaodotempo.retrofit.PrevisaoDoDiaApi;
-import com.example.previsaodotempo.retrofit.PrevisaoDoDiaApiImplementacao;
+import com.example.previsaodotempo.retrofit.PrevisaoDoTempoApi;
+import com.example.previsaodotempo.retrofit.PrevisaoDoTempoApiImplementacao;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -33,11 +32,11 @@ public class MainActivity extends AppCompatActivity {
     private Button btnBuscar;
     private RecyclerView rvPrevisaoDoTempo;
     private AdapterPrevisaoDaSemana adapterPrevisaoDaSemana;
-    private List<PrevisaoDaSemana> previsoes = new ArrayList<>();
+    private List<PrevisaoDaSemana> previsoesApi = new ArrayList<>();
     private List<PrevisaoDaSemana> previsoesDaSemana = new ArrayList<>();
+    private String cidade = null;
+    //ProgressBar progressBar;
 
-    ProgressBar progressBar;
-    private String nomeDaCidade = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //nomeDaCidade = tieNomeDaCidade.getText().toString();
+
+                //Cidade = tieNomeDaCidade.getText().toString();
                 gerarListaDePrevisao();
 
             }
@@ -65,17 +65,17 @@ public class MainActivity extends AppCompatActivity {
         tieNomeDaCidade = findViewById(R.id.tieNomeDaCidade);
         btnBuscar = findViewById(R.id.btnBuscar);
         rvPrevisaoDoTempo = findViewById(R.id.rvPrevisaoDoTempo);
-        progressBar = findViewById(R.id.progressBar);
+        //progressBar = findViewById(R.id.progressBar);
 
-        progressBar.setVisibility(View.GONE);
+        //progressBar.setVisibility(View.GONE);
 
     }
 
     private void gerarListaDePrevisao() {
 
-        PrevisaoDoDiaApi previsaoDoDiaApi = PrevisaoDoDiaApiImplementacao.getRetrofitInstance()
-                .create(PrevisaoDoDiaApi.class);
-        Call<PrevisaoDoDia> call = previsaoDoDiaApi.getPrevisaoDoDia();
+        PrevisaoDoTempoApi previsaoDoTempoApi = PrevisaoDoTempoApiImplementacao.getRetrofitInstance()
+                .create(PrevisaoDoTempoApi.class);
+        Call<PrevisaoDoDia> call = previsaoDoTempoApi.getPrevisaoDoTempo();
 
        call.enqueue(new Callback<PrevisaoDoDia>() {
            @Override
@@ -84,33 +84,40 @@ public class MainActivity extends AppCompatActivity {
                if(response.isSuccessful()) {
 
 //                   PrevisaoDoDia previsaoDoDia = new PrevisaoDoDia();
-//
-//                   previsaoDoDia = response.body();
+//                   previsaoDoDia = response.body().getPrevisaoDoDia();
+//                   String cidade = previsaoDoDia.getCity_name();
 
-                   previsoes = response.body().getPrevisaoDaSemana();
+                   previsoesApi = response.body().getPrevisaoDaSemana();
 
                    //previsoes = previsaoDoDia.getPrevisaoDaSemana();
 
-                   for(int i = 0; i < previsoes.size(); i++){
-
-                       PrevisaoDaSemana previsaoDaSemana = new PrevisaoDaSemana();
-                       previsaoDaSemana = previsoes.get(i);
-                       previsoesDaSemana.add(previsaoDaSemana);
-
-                   }
-
-                   //List<PrevisaoDaSemana> lista = previsoesDaSemana;
-                   adapterPrevisaoDaSemana = new AdapterPrevisaoDaSemana(previsoesDaSemana, getApplicationContext());
-                   rvPrevisaoDoTempo.setAdapter(adapterPrevisaoDaSemana);
-
-                   //adapterPrevisaoDaSemana.notifyDataSetChanged();
-
-
                }else {
-
-                   Toast.makeText(MainActivity.this, "Ocorreu algum problema!!!",
+                   previsoesApi = new ArrayList<>();
+                   if(response.code() == 400){
+                   Toast.makeText(MainActivity.this, "Não foi possível obter a previsão do tempo!",
                            Toast.LENGTH_SHORT).show();
+                   }else{
+
+                       Toast.makeText(MainActivity.this, "Ocorreu o erro " +response.code(), Toast.LENGTH_SHORT).show();
+                   }
                }
+
+               PrevisaoDaSemana previsaoDaSemana;
+
+               for(int i = 0; i < previsoesApi.size(); i++){
+
+                   previsaoDaSemana = previsoesApi.get(i);
+                   previsoesDaSemana.add(previsaoDaSemana);
+
+               }
+
+               //List<PrevisaoDaSemana> lista = previsoesDaSemana;
+               adapterPrevisaoDaSemana = new AdapterPrevisaoDaSemana (previsoesDaSemana, MainActivity.this);
+               rvPrevisaoDoTempo.setAdapter(adapterPrevisaoDaSemana);
+
+               //adapterPrevisaoDaSemana.notifyDataSetChanged();
+
+
            }
 
            @Override

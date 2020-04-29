@@ -18,15 +18,16 @@ public class PrevisaoDaSemana {
 //    @SerializedName("condition")
 //    private String condition;
 
-    public PrevisaoDaSemana() {
-    }
 
-    public PrevisaoDaSemana(String date, String weekday, Integer max, Integer min) {
-        this.date = date;
-        this.weekday = weekday;
-        this.max = max;
-        this.min = min;
-    }
+//    public PrevisaoDaSemana() {
+//    }
+//
+//    public PrevisaoDaSemana(String date, String weekday, Integer max, Integer min) {
+//        this.date = date;
+//        this.weekday = weekday;
+//        this.max = max;
+//        this.min = min;
+//    }
 
     public String getDate() {
         return date;

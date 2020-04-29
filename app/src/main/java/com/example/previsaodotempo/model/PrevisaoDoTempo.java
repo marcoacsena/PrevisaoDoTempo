@@ -7,23 +7,23 @@ public class PrevisaoDoTempo {
     private String by;
     @SerializedName("valid_key")
     private Boolean validKey;
-    @SerializedName("execution_time")
-    private Double executionTime;
-    @SerializedName("from_cache")
-    private Boolean fromCache;
+//    @SerializedName("execution_time")
+//    private Double executionTime;
+//    @SerializedName("from_cache")
+//    private Boolean fromCache;
 
+    //@SerializedName("results")
     private PrevisaoDoDia previsaoDoDia;
+//
+//    public PrevisaoDoTempo() {
+//    }
+//
+//    public PrevisaoDoTempo(String by, Boolean validKey, PrevisaoDoDia previsaoDoDia) {
+//        this.by = by;
+//        this.validKey = validKey;
+//        this.previsaoDoDia = previsaoDoDia;
+//    }
 
-    public PrevisaoDoTempo() {
-    }
-
-    public PrevisaoDoTempo(String by, Boolean validKey, Double executionTime, Boolean fromCache, PrevisaoDoDia previsaoDoDia) {
-        this.by = by;
-        this.validKey = validKey;
-        this.executionTime = executionTime;
-        this.fromCache = fromCache;
-        this.previsaoDoDia = previsaoDoDia;
-    }
 
     public String getBy() {
         return by;
@@ -39,22 +39,6 @@ public class PrevisaoDoTempo {
 
     public void setValidKey(Boolean validKey) {
         this.validKey = validKey;
-    }
-
-    public Double getExecutionTime() {
-        return executionTime;
-    }
-
-    public void setExecutionTime(Double executionTime) {
-        this.executionTime = executionTime;
-    }
-
-    public Boolean getFromCache() {
-        return fromCache;
-    }
-
-    public void setFromCache(Boolean fromCache) {
-        this.fromCache = fromCache;
     }
 
     public PrevisaoDoDia getPrevisaoDoDia() {
