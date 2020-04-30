@@ -1,9 +1,8 @@
 package com.example.previsaodotempo.model;
 
-
 import com.google.gson.annotations.SerializedName;
 
-public class PrevisaoDaSemana {
+public class PrevisaoDaSemana implements Comparable<PrevisaoDaSemana> {
 
     @SerializedName("date")
     private String date;
@@ -59,5 +58,17 @@ public class PrevisaoDaSemana {
 
     public void setMin(Integer min) {
         this.min = min;
+    }
+
+    @Override
+    public int compareTo(PrevisaoDaSemana o) {
+
+        if(o.getMax() == this.max){
+            return 0;
+        }else if(o.getMax() > this.max){
+            return 1;
+        }else
+
+        return -1;
     }
 }
