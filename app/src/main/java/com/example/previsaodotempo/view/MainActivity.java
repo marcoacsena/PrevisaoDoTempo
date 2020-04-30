@@ -1,9 +1,11 @@
 package com.example.previsaodotempo.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.icu.lang.UCharacter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rvPrevisaoDoTempo.setLayoutManager(layoutManager);
         rvPrevisaoDoTempo.hasFixedSize();
+        rvPrevisaoDoTempo.addItemDecoration(
+                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,11 +79,11 @@ public class MainActivity extends AppCompatActivity {
 
         PrevisaoDoTempoApi previsaoDoTempoApi = PrevisaoDoTempoApiImplementacao.getRetrofitInstance()
                 .create(PrevisaoDoTempoApi.class);
-        Call<PrevisaoDoDia> call = previsaoDoTempoApi.getPrevisaoDoTempo();
+        Call<PrevisaoDoTempo> call = previsaoDoTempoApi.getPrevisaoDoTempo();
 
-       call.enqueue(new Callback<PrevisaoDoDia>() {
+       call.enqueue(new Callback<PrevisaoDoTempo>() {
            @Override
-           public void onResponse(Call<PrevisaoDoDia> call, Response<PrevisaoDoDia> response) {
+           public void onResponse(Call<PrevisaoDoTempo> call, Response<PrevisaoDoTempo> response) {
 
                if(response.isSuccessful()) {
 
@@ -87,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 //                   previsaoDoDia = response.body().getPrevisaoDoDia();
 //                   String cidade = previsaoDoDia.getCity_name();
 
-                   previsoesApi = response.body().getPrevisaoDaSemana();
+                   previsoesApi = response.body().getPrevisaoDoDia().getPrevisaoDaSemana();
 
                    //previsoes = previsaoDoDia.getPrevisaoDaSemana();
 
@@ -111,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
 
                }
 
-               //List<PrevisaoDaSemana> lista = previsoesDaSemana;
                adapterPrevisaoDaSemana = new AdapterPrevisaoDaSemana (previsoesDaSemana, MainActivity.this);
                rvPrevisaoDoTempo.setAdapter(adapterPrevisaoDaSemana);
 
@@ -121,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
            }
 
            @Override
-           public void onFailure(Call<PrevisaoDoDia> call, Throwable t) {
+           public void onFailure(Call<PrevisaoDoTempo> call, Throwable t) {
 
            }
        });

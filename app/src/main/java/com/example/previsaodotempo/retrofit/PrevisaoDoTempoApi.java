@@ -11,8 +11,8 @@ import retrofit2.http.Query;
 public interface PrevisaoDoTempoApi {
 
 
-    @GET("/weather?array_limit=8&fields=only_results,temp,date,Florianopolis,forecast,max,min,date, weekday&key=b6411d18")
-    Call<PrevisaoDoDia> getPrevisaoDoTempo();
+    @GET("/weather?key=b6411d18&city_name=Brasilia,DF")
+    Call<PrevisaoDoTempo> getPrevisaoDoTempo();
 
 
 }

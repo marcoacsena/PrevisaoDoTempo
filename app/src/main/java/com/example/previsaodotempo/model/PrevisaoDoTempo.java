@@ -12,7 +12,7 @@ public class PrevisaoDoTempo {
 //    @SerializedName("from_cache")
 //    private Boolean fromCache;
 
-    //@SerializedName("results")
+    @SerializedName("results")
     private PrevisaoDoDia previsaoDoDia;
 //
 //    public PrevisaoDoTempo() {
