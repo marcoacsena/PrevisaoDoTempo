@@ -11,8 +11,8 @@ import retrofit2.http.Query;
 public interface PrevisaoDoTempoApi {
 
 
-    @GET("/weather?key=b6411d18&city_name=Brasilia,DF")
-    Call<PrevisaoDoTempo> getPrevisaoDoTempo();
+    @GET("/weather?key=b6411d18&nomedacidade")
+    Call<PrevisaoDoTempo> getPrevisaoDoTempo(@Query("nomedacidade") String nomedacidade);
 
 
 }

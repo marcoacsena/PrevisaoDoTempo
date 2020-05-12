@@ -2,7 +2,9 @@ package com.example.previsaodotempo.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class PrevisaoDaSemana implements Comparable<PrevisaoDaSemana> {
+import java.util.Comparator;
+
+public class PrevisaoDaSemana {
 
     @SerializedName("date")
     private String date;
@@ -21,12 +23,12 @@ public class PrevisaoDaSemana implements Comparable<PrevisaoDaSemana> {
 //    public PrevisaoDaSemana() {
 //    }
 //
-//    public PrevisaoDaSemana(String date, String weekday, Integer max, Integer min) {
-//        this.date = date;
-//        this.weekday = weekday;
-//        this.max = max;
-//        this.min = min;
-//    }
+    public PrevisaoDaSemana(String date, String weekday, Integer max, Integer min) {
+        this.date = date;
+        this.weekday = weekday;
+        this.max = max;
+        this.min = min;
+    }
 
     public String getDate() {
         return date;
@@ -60,15 +62,26 @@ public class PrevisaoDaSemana implements Comparable<PrevisaoDaSemana> {
         this.min = min;
     }
 
-    @Override
-    public int compareTo(PrevisaoDaSemana o) {
+//       @Override
+//    public int compareTo(PrevisaoDaSemana previsaoDaSemana) {
+//
+//        if(previsaoDaSemana.getDate() == this.date){
+//            return 0;
+//        }else if(previsaoDaSemana.getDate() > this.date){
+//            return 1;
+//        }else
+//
+//        return -1;
+//    }
 
-        if(o.getMax() == this.max){
-            return 0;
-        }else if(o.getMax() > this.max){
-            return 1;
-        }else
+    public static class DateComparator implements Comparator<PrevisaoDaSemana>{
 
-        return -1;
+
+        @Override
+        public int compare(PrevisaoDaSemana previsaoDaSemana1, PrevisaoDaSemana previsaoDaSemana2) {
+            return previsaoDaSemana2.getDate().compareTo(previsaoDaSemana1.getDate());
+        }
     }
+
+
 }
